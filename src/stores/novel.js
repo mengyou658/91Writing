@@ -550,7 +550,7 @@ export const useNovelStore = defineStore('novel', () => {
   }
 
   // 流式生成内容
-  const generateContentWithAPIStream = async (keywords, template, outline, wordLimit, pre='请根据以下信息生成小说内容：', suff = '', onChunk = null) => {
+  const generateContentWithAPIStream = async (keywords, template, outline, wordLimit, pre='请根据以下信息生成小说内容：', suff , onChunk = null) => {
     if (!isApiConfigured.value) {
       throw new Error('请先配置API密钥')
     }
