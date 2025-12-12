@@ -550,7 +550,7 @@ export const useNovelStore = defineStore('novel', () => {
   }
 
   // 流式生成内容
-  const generateContentWithAPIStream = async (keywords, template, outline, wordLimit, onChunk = null) => {
+  const generateContentWithAPIStream = async (keywords, template, outline, wordLimit, pre='请根据以下信息生成小说内容：', suff = '', onChunk = null) => {
     if (!isApiConfigured.value) {
       throw new Error('请先配置API密钥')
     }
@@ -559,7 +559,7 @@ export const useNovelStore = defineStore('novel', () => {
     setGeneratedContent('') // 清空之前的内容
     
     try {
-      const result = await apiService.generateGeneralContentStream(keywords, template, outline, wordLimit, (chunk, fullContent) => {
+      const result = await apiService.generateGeneralContentStream(keywords, template, outline, wordLimit, pre, suff,(chunk, fullContent) => {
         // 实时更新生成的内容
         setGeneratedContent(fullContent)
         console.log('流式内容更新:', chunk) // 添加调试日志

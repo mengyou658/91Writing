@@ -771,21 +771,20 @@ ${prompt}
   }
 
   // 流式生成通用内容
-  async generateGeneralContentStream(keywords, template, outline, wordLimit = 500, onChunk = null) {
-    const templateInfo = template ? `\n写作风格：${template.style}\n写作提示：${template.writingTips}` : ''
-    const outlineInfo = outline ? `\n参考大纲：${outline}` : ''
-    const keywordList = keywords ? `\n关键词：${keywords}` : ''
-    
-    const prompt = `请根据以下信息生成小说内容：${keywordList}${templateInfo}${outlineInfo}
-
-要求：
+  async generateGeneralContentStream(keywords, template, outline, wordLimit = 500, pre = '', suff = `要求：
 1. 字数控制在${wordLimit}字左右
 2. 内容要生动有趣，情节引人入胜
 3. 语言流畅，描写细腻
 4. 符合所选模板的风格特点
 5. 如果有大纲，要与大纲保持一致
 
-请直接输出小说内容：`
+请直接输出小说内容：`, onChunk = null) {
+    const templateInfo = template ? `\n写作风格：${template.style}\n写作提示：${template.writingTips}` : ''
+    const outlineInfo = outline ? `\n参考大纲：${outline}` : ''
+    const keywordList = keywords ? `\n关键词：${keywords}` : ''
+    const prompt = `${pre}${keywordList}${templateInfo}${outlineInfo}
+    ${suff}
+    `
 
     return await this.generateTextStream(prompt, {}, onChunk)
   }

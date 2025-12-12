@@ -1123,7 +1123,9 @@ ${chapterInfos.map((chapter, index) => `${index + 1}. ${chapter.title} (${chapte
       '',  // keywords (不需要)
       '',  // template (已包含在prompt中)
       prompt,  // 使用outline参数传递完整prompt
-      4000,  // wordLimit
+      40000,  // wordLimit
+        '',
+        '',
       (chunk, fullContent) => {
         // 实时更新分析结果
         analysisResult.value = reportHeader + fullContent + reportFooter
